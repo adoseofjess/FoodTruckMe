@@ -37,9 +37,7 @@ FoodTruckMe.Views.FoodtrucksIndex = Backbone.View.extend({
 		});
 
 		this.$el.html(renderedContent);
-		
-		console.log("render");
-		
+				
 		return this;
 	},
 	
