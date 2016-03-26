@@ -38,6 +38,8 @@ gem 'multi_json'
 
 gem 'backbone-on-rails'
 
+gem 'ejs'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

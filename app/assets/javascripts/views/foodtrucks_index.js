@@ -1,7 +1,11 @@
 FoodTruckMe.Views.FoodtrucksIndex = Backbone.View.extend({
+	initialize: function (options) {
+		this.foodtrucks = options.foodtrucks;
+	},
+	
 	render: function () {
 		var $ul = $("<ul>");
-		FoodTruckMe.Collections.foodtrucks.each(function (foodtruck) {
+		this.foodtrucks.each(function (foodtruck) {
 			var $li = $("<li>");
 			
 			$li.text(foodtruck.get("applicant"));
