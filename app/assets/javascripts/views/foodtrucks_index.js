@@ -1,19 +1,24 @@
 FoodTruckMe.Views.FoodtrucksIndex = Backbone.View.extend({
-	initialize: function (options) {
-		this.foodtrucks = options.foodtrucks;
+	template: JST["foodtrucks/index"],
+
+	events: {
+		"click button#refresh": "refresh"
 	},
-	
+
+	refresh: function () {
+		var view = this;
+
+		this.collection.fetch({
+			success: function () { view.render() }
+		});
+	},
+
 	render: function () {
-		var $ul = $("<ul>");
-		this.foodtrucks.each(function (foodtruck) {
-			var $li = $("<li>");
-			
-			$li.text(foodtruck.get("applicant"));
+		var renderedContent = this.template({
+			foodtrucks: this.collection
+		});
 
-			$ul.append($li);	
-		}); 
-
-		this.$el.html($ul);
+		this.$el.html(renderedContent);
 		
 		return this;
 	}
