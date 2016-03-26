@@ -5,12 +5,16 @@ FoodTruckMe.Views.FoodtrucksIndex = Backbone.View.extend({
 		"click button#refresh": "refresh"
 	},
 
-	refresh: function () {
-		var view = this;
+	initialize: function (option) {
+		this.listenTo(
+			this.collection, 
+			"sync", 
+			this.render
+		);
+	},
 
-		this.collection.fetch({
-			success: function () { view.render() }
-		});
+	refresh: function () {
+		this.collection.fetch();
 	},
 
 	render: function () {

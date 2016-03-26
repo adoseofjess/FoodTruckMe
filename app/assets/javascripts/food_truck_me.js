@@ -7,11 +7,9 @@ window.FoodTruckMe = {
 		var view = new FoodTruckMe.Views.FoodtrucksIndex({
 			collection: FoodTruckMe.Collections.foodtrucks
 		});
-		FoodTruckMe.Collections.foodtrucks.fetch({
-			success: function () {
-				$("body").append(view.render().$el);
-			}
-		});
+
+		FoodTruckMe.Collections.foodtrucks.fetch();
+		$("body").append(view.render().$el);
   }
 };
 
