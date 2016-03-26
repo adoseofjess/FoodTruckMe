@@ -1,7 +1,12 @@
+<button id="refresh">Refresh</button>
+
 <ul>
 	<% foodtrucks.each(function (foodtruck) { %>
-		<li><%= foodtruck.get("applicant") %></li>
+		<li><%= foodtruck.get("applicant") %>
+				<%= foodtruck.get("latitude") %>
+				<%= foodtruck.get("longitude") %>
+		</li>
 	<% }) %>
 </ul>
 
-<button id="refresh">Refresh</button>
+<a href="#/google">Show Food Truck</a>

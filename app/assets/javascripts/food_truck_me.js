@@ -4,12 +4,8 @@ window.FoodTruckMe = {
   Views: {},
   Routers: {},
   initialize: function() {
-		var view = new FoodTruckMe.Views.FoodtrucksIndex({
-			collection: FoodTruckMe.Collections.foodtrucks
-		});
-
-		FoodTruckMe.Collections.foodtrucks.fetch();
-		$("body").append(view.render().$el);
+		new FoodTruckMe.Routers.AppRouter();
+		Backbone.history.start();
   }
 };
 
