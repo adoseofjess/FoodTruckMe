@@ -9,6 +9,6 @@ FoodTruckMe.Routers.AppRouter = Backbone.Router.extend({
 		});
 
 		FoodTruckMe.Collections.foodtrucks.fetch();
-		$("body").html(view.render().$el);
+		$(".app").html(view.render().$el);
 	}
 });
