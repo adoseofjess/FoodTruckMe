@@ -9,6 +9,8 @@ This application uses Rails and Postgresql to implement a simple back-end that c
 ##Demo
 Check out the app [here](https://foodtruck-me.herokuapp.com/).
 
+![image](file:///Users/jessicakim/Desktop/35DBBB5A-15B3-41F3-93E7-C3D59466ECB8.png)
+
 ##Software used
 * Ruby on Rails: moderate experience
 * Backbone: very little experience
