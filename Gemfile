@@ -13,6 +13,7 @@ gem 'faraday'
 gem 'multi_json'
 gem 'backbone-on-rails'
 gem 'ejs'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 group :development, :test do
   gem 'byebug'
