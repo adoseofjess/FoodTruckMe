@@ -1,37 +1,14 @@
 FoodTruckMe.Views.MapView = Backbone.View.extend({
 	el: "#map",
-	
-	template: JST["foodtrucks/mapview"],
-	
-	events: {
-		"click button#refresh": "refresh",
-		"click div": "click",
-		"click button": "click"
-	},
-	
-	initialize: function (options) {	
-		// this.listenTo(
-		// 	this.collection,
-		// 	"sync",
-		// 	this.addMarkers
-		// );
-		// this.listenTo(
-		// 	this,
-		// 	'item:click',
-		// 	this.click
-		// )
 		
+	initialize: function (options) {			
 		Backbone.on("addAllMarkers", this.addMarkers, this);
 		Backbone.on("clearAllMarkers", this.clearAllMarkers, this);
 		
 		this.infoWindows = [];
 		this.markers = [];
 	},
-	
-	click: function () {
-		alert("click");
-	},
-	
+
 	addMarker: function (model) {
 		var href = "https://www.google.com/maps/dir/Current+Location/" + model.get("latitude") + "," + model.get("longitude")
 		var contentString = '<div id="content">'+
@@ -72,7 +49,6 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	},
 	
 	clearAllMarkers: function () {
-	  console.log(this.markers);
 		for (var i = 0; i < this.markers.length; i++) {
 	    this.markers[i].setMap(null);
 	  }
@@ -100,7 +76,6 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
     // Bias the SearchBox results towards current map's viewport.
     var that = this;
 		this._map.addListener('bounds_changed', function() {
-			console.log("bounds changed");
 			searchBox.setBounds(that._map.getBounds());
     });
 		

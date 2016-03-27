@@ -3,15 +3,6 @@ FoodTruckMe.Routers.AppRouter = Backbone.Router.extend({
 		"": "mapView"
 	},
 
-	foodtrucksIndex: function() {
-		var view = new FoodTruckMe.Views.FoodtrucksIndex({
-			collection: FoodTruckMe.Collections.foodtrucks
-		});
-
-		FoodTruckMe.Collections.foodtrucks.fetch();
-		$(".app").html(view.render().$el);
-	},
-	
 	mapView: function() {
 		var mapView = new FoodTruckMe.Views.MapView({
 			collection: FoodTruckMe.Collections.foodtrucks,
