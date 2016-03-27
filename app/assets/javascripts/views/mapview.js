@@ -15,6 +15,7 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 		// 	"sync",
 		// 	this.addMarkers
 		// );
+		this.infoWindows = [];
 	},
 	
 	click: function () {
@@ -43,14 +44,23 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 		
 		var that = this;
 		google.maps.event.addListener(marker,'click', (function(marker, infoWindow){ 
-				return function() {
-		        infoWindow.open(that._map,marker);
-		    };
+			return function() {
+				that.closeAllInfoWindows();
+				
+				that.infoWindows.push(infoWindow);
+				infoWindow.open(that._map,marker);
+		  };
 		})(marker,infoWindow)); 
 	},
 	
 	addMarkers: function () {
 		this.collection.each(this.addMarker.bind(this));
+	},
+	
+	closeAllInfoWindows: function () {
+	  for (var i = 0; i < this.infoWindows.length; i++) {
+	     this.infoWindows[i].close();
+	  }
 	},
 	
 	render: function () {		
