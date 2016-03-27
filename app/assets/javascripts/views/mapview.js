@@ -9,16 +9,27 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 		"click button": "click"
 	},
 	
-	initialize: function (option) {	
+	initialize: function (options) {	
 		// this.listenTo(
 		// 	this.collection,
 		// 	"sync",
 		// 	this.addMarkers
 		// );
+		// this.listenTo(
+		// 	this,
+		// 	'item:click',
+		// 	this.click
+		// )
+		
+		Backbone.on("addAllMarkers", this.addMarkers, this);
+		Backbone.on("clearAllMarkers", this.clearAllMarkers, this);
+		
 		this.infoWindows = [];
+		this.markers = [];
 	},
 	
 	click: function () {
+		alert("click");
 	},
 	
 	addMarker: function (model) {
@@ -37,10 +48,13 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 		var infoWindow = new google.maps.InfoWindow({
 	    content: contentString
 	  });
+		
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng({lat: model.get("latitude"), lng: model.get("longitude")}),
 			map: this._map
 		});
+		
+		this.markers.push(marker);
 		
 		var that = this;
 		google.maps.event.addListener(marker,'click', (function(marker, infoWindow){ 
@@ -57,13 +71,21 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 		this.collection.each(this.addMarker.bind(this));
 	},
 	
+	clearAllMarkers: function () {
+	  console.log(this.markers);
+		for (var i = 0; i < this.markers.length; i++) {
+	    this.markers[i].setMap(null);
+	  }
+		this.markers = [];
+	},
+	
 	closeAllInfoWindows: function () {
 	  for (var i = 0; i < this.infoWindows.length; i++) {
 	     this.infoWindows[i].close();
 	  }
 	},
 	
-	render: function () {		
+	render: function () {				
 		this._map = new google.maps.Map(this.el, {
 	    center: {lat: 37.773972, lng: -122.431297},
 	    zoom: 12,
@@ -87,7 +109,6 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	// Listen for the event fired when the user selects a prediction and retrieve
 	  // more details for that place.
 	  searchBox.addListener('places_changed', function() {
-	    console.log("HEY");
 			that.addMarkers();
 			
 			var places = searchBox.getPlaces();

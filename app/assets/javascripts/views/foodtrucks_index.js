@@ -2,28 +2,29 @@ FoodTruckMe.Views.FoodtrucksIndex = Backbone.View.extend({
 	template: JST["foodtrucks/index"],
 
 	events: {
-		"click button#refresh": "refresh",
-		"click div#map": "click",
-		"click button": "click"
+		"click button#addAllMarkers": "addAllMarkers",
+		"click button#clearAllMarkers": "clearAllMarkers"
 	},
 
+	click: function () {
+		alert("click");
+	},
+	
 	initialize: function (option) {
 		this.listenTo(
 			this.collection,
 			"sync",
 			this.render
 		);
-
-    _.bindAll(this, 'render', 'afterRender'); 
-    var _this = this; 
-    this.render = _.wrap(this.render, function(render) { 
-        render(); 
-        _this.afterRender(); 
-        return _this; 
-    }); 
 	},
 
-	refresh: function () {
+	addAllMarkers: function () {
+		Backbone.trigger('addAllMarkers');
+		this.collection.fetch();
+	},
+	
+	clearAllMarkers: function () {
+		Backbone.trigger('clearAllMarkers');
 		this.collection.fetch();
 	},
 	
