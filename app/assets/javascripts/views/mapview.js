@@ -20,28 +20,10 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	click: function () {
 	},
 	
-	drawMarkers: function () {
-		// var markers = []
-		// var that = this;
-		new google.maps.Marker({
-	    map: this._map,
-	    position: {lat: 37.773972, lng: -122.431297}
-	  })
-
-		// this.collection.forEach(function(model) {
-		// 	console.log(model);
-			// new google.maps.Marker({
-			// 		    map: that._map,
-			// 		    position: {lat: 37.773972, lng: -122.431297}
-			// 		  })
-		// })
-	},
-	
 	addMarker: function (model) {
 		new google.maps.Marker({
 			position: new google.maps.LatLng({lat: model.get("latitude"), lng: model.get("longitude")}),
-			map: this._map,
-			title: "Test"
+			map: this._map
 		});
 	},
 	
@@ -50,13 +32,12 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	},
 	
 	render: function () {		
-		console.log("in render");
 		this._map = new google.maps.Map(this.el, {
 	    center: {lat: 37.773972, lng: -122.431297},
 	    zoom: 13,
 			zoomControl: true,
 	  });
-		console.log(this._map);
+
     var input = document.getElementById('pac-input');
 	
     var searchBox = new google.maps.places.SearchBox(input);
@@ -65,9 +46,59 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
     // Bias the SearchBox results towards current map's viewport.
     var that = this;
 		this._map.addListener('bounds_changed', function() {
-      console.log("bounds changed");
 			searchBox.setBounds(that._map.getBounds());
     });
+		
+		var markers = [];
+		
+	// Listen for the event fired when the user selects a prediction and retrieve
+	  // more details for that place.
+	  searchBox.addListener('places_changed', function() {
+	    var places = searchBox.getPlaces();
+
+	    if (places.length == 0) {
+	      return;
+	    }
+
+	    // Clear out the old markers.
+	    markers.forEach(function(marker) {
+	      marker.setMap(null);
+	    });
+	    markers = [];
+
+	    // For each place, get the icon, name and location.
+	    var bounds = new google.maps.LatLngBounds();
+	    places.forEach(function(place) {
+	      var icon = {
+	        url: place.icon,
+	        size: new google.maps.Size(71, 71),
+	        origin: new google.maps.Point(0, 0),
+	        anchor: new google.maps.Point(17, 34),
+	        scaledSize: new google.maps.Size(25, 25)
+	      };
+
+	      // Create a marker for each place.
+	      markers.push(new google.maps.Marker({
+	        map: that._map,
+	        icon: icon,
+	        title: place.name,
+	        position: place.geometry.location
+	      }));
+
+	      if (place.geometry.viewport) {
+	        // Only geocodes have viewport.
+	        bounds.union(place.geometry.viewport);
+	      } else {
+	        bounds.extend(place.geometry.location);
+	      }
+	    });
+	    that._map.fitBounds(bounds);
+			that._map.setZoom(16);
+	  });
+				
+// Add searching
+		
+		
 				
 		return this;
 	},
