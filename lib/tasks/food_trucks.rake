@@ -5,9 +5,8 @@ namespace :food_trucks do
 	  response = Faraday.get FOOD_TRUCKS_API_URL
 		data = MultiJson.load(response.body)
 		data.each do |data_point|
-			food_truck = FoodTruck.create(data_point.slice("address", "applicant", "approved", "block", "blocklot", "cnn", "dayhours", "expirationdate", "facilitytype", "fooditems", "locationdescription", "status"))
+			food_truck = FoodTruck.create(data_point.slice("address", "applicant", "approved", "block", "blocklot", "cnn", "dayshours", "expirationdate", "facilitytype", "fooditems", "locationdescription", "status"))
 			food_truck.update_attributes(latitude: data_point["latitude"].to_f, longitude: data_point["longitude"].to_f)
 		end		
   end
-
 end

@@ -10,23 +10,26 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	},
 	
 	initialize: function (option) {	
-		this.listenTo(
-			this.collection,
-			"sync",
-			this.addMarkers
-		);
+		// this.listenTo(
+		// 	this.collection,
+		// 	"sync",
+		// 	this.addMarkers
+		// );
 	},
 	
 	click: function () {
 	},
 	
 	addMarker: function (model) {
+		var href = "https://www.google.com/maps/dir/Current+Location/" + model.get("latitude") + "," + model.get("longitude")
 		var contentString = '<div id="content">'+
 		      '<h1 id="firstHeading" class="firstHeading">' + model.get("applicant") + '</h1>'+
 		      '<div id="bodyContent">'+
 		      '<li>Address: ' + model.get("address") + 
 					'<li>Items: ' + model.get("fooditems") + 
+					'<li>Days and Hours: ' + model.get("dayshours") + 
 			 		'<li>Location Description: ' + model.get("locationdescription") + 
+					'<li><a href=' + href + '>Get Directions</a>' + 
 		      '</div>'+
 		      '</div>';
 		
@@ -46,8 +49,8 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 		})(marker,infoWindow)); 
 	},
 	
-	addMarkers: function (collection) {
-		collection.each(this.addMarker.bind(this));
+	addMarkers: function () {
+		this.collection.each(this.addMarker.bind(this));
 	},
 	
 	render: function () {		
@@ -65,6 +68,7 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
     // Bias the SearchBox results towards current map's viewport.
     var that = this;
 		this._map.addListener('bounds_changed', function() {
+			console.log("bounds changed");
 			searchBox.setBounds(that._map.getBounds());
     });
 		
@@ -73,7 +77,10 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	// Listen for the event fired when the user selects a prediction and retrieve
 	  // more details for that place.
 	  searchBox.addListener('places_changed', function() {
-	    var places = searchBox.getPlaces();
+	    console.log("HEY");
+			that.addMarkers();
+			
+			var places = searchBox.getPlaces();
 
 	    if (places.length == 0) {
 	      return;
