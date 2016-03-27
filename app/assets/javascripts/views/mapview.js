@@ -21,14 +21,12 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	},
 	
 	addMarker: function (model) {
-		console.log(model);
 		var contentString = '<div id="content">'+
 		      '<h1 id="firstHeading" class="firstHeading">' + model.get("applicant") + '</h1>'+
 		      '<div id="bodyContent">'+
 		      '<li>Address: ' + model.get("address") + 
 					'<li>Items: ' + model.get("fooditems") + 
 			 		'<li>Location Description: ' + model.get("locationdescription") + 
-					
 		      '</div>'+
 		      '</div>';
 		
@@ -55,7 +53,7 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	render: function () {		
 		this._map = new google.maps.Map(this.el, {
 	    center: {lat: 37.773972, lng: -122.431297},
-	    zoom: 13,
+	    zoom: 12,
 			zoomControl: true,
 	  });
 
