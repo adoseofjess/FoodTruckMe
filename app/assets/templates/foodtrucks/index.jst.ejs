@@ -1,13 +1,4 @@
-<button id="addAllMarkers">View All Food Trucks</button>
-<button id="clearAllMarkers">Clear All</button>
-
-<ul>
-	<% foodtrucks.each(function (foodtruck) { %>
-		<li><%= foodtruck.get("applicant") %>
-				<%= foodtruck.get("latitude") %>
-				<%= foodtruck.get("longitude") %>
-		</li>
-	<% }) %>
-</ul>
-
-<a href="#/google">Show Food Truck</a>
+<div id="filters">
+	<button id="addAllMarkers">View All Food Trucks</button>
+	<button id="clearAllMarkers">Clear All</button>
+</div>
