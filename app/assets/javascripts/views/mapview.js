@@ -21,10 +21,31 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	},
 	
 	addMarker: function (model) {
-		new google.maps.Marker({
+		console.log(model);
+		var contentString = '<div id="content">'+
+		      '<h1 id="firstHeading" class="firstHeading">' + model.get("applicant") + '</h1>'+
+		      '<div id="bodyContent">'+
+		      '<li>Address: ' + model.get("address") + 
+					'<li>Items: ' + model.get("fooditems") + 
+			 		'<li>Location Description: ' + model.get("locationdescription") + 
+					
+		      '</div>'+
+		      '</div>';
+		
+		var infoWindow = new google.maps.InfoWindow({
+	    content: contentString
+	  });
+		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng({lat: model.get("latitude"), lng: model.get("longitude")}),
 			map: this._map
 		});
+		
+		var that = this;
+		google.maps.event.addListener(marker,'click', (function(marker, infoWindow){ 
+				return function() {
+		        infoWindow.open(that._map,marker);
+		    };
+		})(marker,infoWindow)); 
 	},
 	
 	addMarkers: function (collection) {
@@ -94,11 +115,7 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	    });
 	    that._map.fitBounds(bounds);
 			that._map.setZoom(16);
-	  });
-				
-// Add searching
-		
-		
+	  });		
 				
 		return this;
 	},
