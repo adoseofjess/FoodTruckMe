@@ -1,4 +1,4 @@
-FoodTruckMe.Views.FoodtrucksIndex = Backbone.View.extend({
+FoodTruckMe.Views.FoodtrucksFiltersView = Backbone.View.extend({
 	template: JST["foodtrucks/index"],
 
 	events: {

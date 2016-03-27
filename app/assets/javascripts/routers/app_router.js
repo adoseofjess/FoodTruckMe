@@ -9,12 +9,12 @@ FoodTruckMe.Routers.AppRouter = Backbone.Router.extend({
 			events: this.events
 		});
 		
-		var foodTruckIndex = new FoodTruckMe.Views.FoodtrucksIndex({
+		var foodtrucksFiltersView = new FoodTruckMe.Views.FoodtrucksFiltersView({
 			collection: FoodTruckMe.Collections.foodtrucks
 		});
 		
 		FoodTruckMe.Collections.foodtrucks.fetch();
 		$("#map").html(mapView.render().$el);
-		$("#filters").html(foodTruckIndex.render().$el);
+		$("#filters").html(foodtrucksFiltersView.render().$el);
 	}
 });
