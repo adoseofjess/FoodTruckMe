@@ -1,5 +1,4 @@
 # Food Truck Me
-========================
 This web app was implemented for Uber's full-stack coding challenge [here](https://github.com/uber/coding-challenge-tools/blob/master/coding_challenge.md#food-trucks).
 
 ##Demo
