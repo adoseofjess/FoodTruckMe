@@ -12,7 +12,7 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 	addMarker: function (model) {
 		var href = "https://www.google.com/maps/dir/Current+Location/" + model.get("latitude") + "," + model.get("longitude")
 		var contentString = '<div class="container" id="content">'+
-		      '<span class="infoWindowHeader"><h1 id="firstHeading" class="firstHeading"><u>' + model.get("applicant") + '</u></h1></span>'+
+		      '<h1 id="firstHeading" class="firstHeading"><u>' + model.get("applicant") + '</u></h1>'+
 		      '<div id="bodyContent">'+
 		      '<p class="text-muted">Address: ' + model.get("address") + '</p>' +
 					'<p class="text-muted">Items: ' + model.get("fooditems") + '</p>' +
