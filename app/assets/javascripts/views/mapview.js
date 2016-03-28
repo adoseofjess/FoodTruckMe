@@ -18,7 +18,7 @@ FoodTruckMe.Views.MapView = Backbone.View.extend({
 					'<p class="text-muted">Items: ' + model.get("fooditems") + '</p>' +
 		      '<p class="text-muted">Days and Hours: ' + model.get("dayshours") + '</p>' +
 		      '<p class="text-muted">Location Description: ' + model.get("locationdescription") + '</p>' +
-					'<a class="btn btn-default" href=' + href + 'role="button">Get Directions</a>' +
+					'<a class="btn btn-default" href=' + href + '>Get Directions</a>' +
 		      '</div>'+
 		      '</div>';
 		
